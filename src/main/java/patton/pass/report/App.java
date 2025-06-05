@@ -88,22 +88,37 @@ public class App
                 }
             }
             // Funder name (from grant->primaryFunder or directFunder)
+            Set<String> funderNames = new LinkedHashSet<>();
             JsonNode grants = submission.path("relationships").path("grants").path("data");
-            if (grants.isArray() && grants.size() > 0) {
-                JsonNode grant = grants.get(0);
-                String grantKey = "grant:" + grant.path("id").asText();
-                JsonNode grantObj = includedMap.get(grantKey);
-                if (grantObj != null && grantObj.has("relationships")) {
-                    JsonNode pf = grantObj.path("relationships").path("primaryFunder").path("data");
-                    if (!pf.isMissingNode()) {
-                        String funderKey = "funder:" + pf.path("id").asText();
-                        JsonNode funderObj = includedMap.get(funderKey);
-                        if (funderObj != null) {
-                            funder = funderObj.path("attributes").path("name").asText("");
+            if (grants.isArray()) {
+                for (JsonNode grant : grants) {
+                    String grantKey = "grant:" + grant.path("id").asText();
+                    JsonNode grantObj = includedMap.get(grantKey);
+                    if (grantObj != null && grantObj.has("relationships")) {
+                        // Check directFunder
+                        JsonNode df = grantObj.path("relationships").path("directFunder").path("data");
+                        if (!df.isMissingNode() && df.has("id")) {
+                            String funderKey = "funder:" + df.path("id").asText();
+                            JsonNode funderObj = includedMap.get(funderKey);
+                            if (funderObj != null) {
+                                String name = funderObj.path("attributes").path("name").asText("");
+                                if (!name.isEmpty()) funderNames.add(name);
+                            }
+                        }
+                        // Check primaryFunder
+                        JsonNode pf = grantObj.path("relationships").path("primaryFunder").path("data");
+                        if (!pf.isMissingNode() && pf.has("id")) {
+                            String funderKey = "funder:" + pf.path("id").asText();
+                            JsonNode funderObj = includedMap.get(funderKey);
+                            if (funderObj != null) {
+                                String name = funderObj.path("attributes").path("name").asText("");
+                                if (!name.isEmpty()) funderNames.add(name);
+                            }
                         }
                     }
                 }
             }
+            funder = String.join(", ", funderNames);
             row.put("Article title", title);
             row.put("DOI", doi);
             row.put("Journal name", journal);
