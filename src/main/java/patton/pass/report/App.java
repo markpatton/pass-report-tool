@@ -15,7 +15,7 @@ public class App
     public static void main( String[] args )
     {
         if (args.length < 2) {
-            System.out.println("Usage: java -jar pass-report-tool.jar <input.json> <output.xlsx>");
+            System.out.println("Usage: java -jar pass-report-tool-1.0-SNAPSHOT-jar-with-dependencies.jar <input.json> <output.csv>");
             return;
         }
         String inputPath = args[0];
