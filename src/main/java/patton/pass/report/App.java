@@ -9,7 +9,7 @@ import java.io.*;
 import java.util.*;
 
 /**
- * Hello world!
+ * Command-line tool to read PASS JSON submissions and write a spreadsheet report as CSV.
  *
  */
 public class App 
