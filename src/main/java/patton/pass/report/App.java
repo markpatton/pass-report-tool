@@ -46,7 +46,7 @@ public class App
         for (JsonNode submission : root.get("data")) {
             Map<String, String> row = new HashMap<>();
             JsonNode attr = submission.get("attributes");
-            row.put("Submission date", attr.path("submittedDate").asText(""));
+            row.put(Column.SUBMISSION_DATE.header(), attr.path("submittedDate").asText(""));
             // Repository names
             List<String> repoNames = new ArrayList<>();
             JsonNode repos = submission.path("relationships").path("repositories").path("data");
@@ -60,7 +60,7 @@ public class App
                     }
                 }
             }
-            row.put("Repository names", String.join(", ", repoNames));
+            row.put(Column.REPOSITORY_NAMES.header(), String.join(", ", repoNames));
             // Article title, DOI, Journal name, Publisher name
             String title = "";
             String doi = "";
@@ -121,18 +121,18 @@ public class App
                 }
             }
             funder = String.join(", ", funderNames);
-            row.put("Article title", title);
-            row.put("DOI", doi);
-            row.put("Journal name", journal);
-            row.put("Funder name", funder);
-            row.put("Publisher name", publisher);
+            row.put(Column.ARTICLE_TITLE.header(), title);
+            row.put(Column.DOI.header(), doi);
+            row.put(Column.JOURNAL_NAME.header(), journal);
+            row.put(Column.FUNDER_NAME.header(), funder);
+            row.put(Column.PUBLISHER_NAME.header(), publisher);
             rows.add(row);
         }
         return rows;
     }
 
     private static void writeSpreadsheet(List<Map<String, String>> rows, String outputPath) throws IOException {
-        String[] columns = {"Submission date", "Repository names", "Article title", "DOI", "Journal name", "Funder name", "Publisher name"};
+        String[] columns = Column.headers();
         CsvMapper csvMapper = new CsvMapper();
         CsvSchema.Builder schemaBuilder = CsvSchema.builder();
         for (String col : columns) {
