@@ -2,6 +2,8 @@ package patton.pass.report;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 
 import java.io.*;
 import java.util.*;
@@ -131,31 +133,14 @@ public class App
 
     private static void writeSpreadsheet(List<Map<String, String>> rows, String outputPath) throws IOException {
         String[] columns = {"Submission date", "Repository names", "Article title", "DOI", "Journal name", "Funder name", "Publisher name"};
-        try (PrintWriter writer = new PrintWriter(new File(outputPath))) {
-            // Write header
-            writer.println(String.join(",", Arrays.stream(columns)
-                .map(App::escapeCsv)
-                .toArray(String[]::new)));
-            // Write rows
-            for (Map<String, String> row : rows) {
-                String[] values = new String[columns.length];
-                for (int i = 0; i < columns.length; i++) {
-                    values[i] = escapeCsv(row.getOrDefault(columns[i], ""));
-                }
-                writer.println(String.join(",", values));
-            }
+        CsvMapper csvMapper = new CsvMapper();
+        CsvSchema.Builder schemaBuilder = CsvSchema.builder();
+        for (String col : columns) {
+            schemaBuilder.addColumn(col);
         }
-    }
-
-    // Escape CSV values (quote if needed, double quotes inside values)
-    private static String escapeCsv(String value) {
-        if (value == null) return "";
-        boolean needsQuotes = value.contains(",") || value.contains("\"") || value.contains("\n") || value.contains("\r");
-        String escaped = value.replace("\"", "\"\"");
-        if (needsQuotes) {
-            return "\"" + escaped + "\"";
-        } else {
-            return escaped;
+        CsvSchema schema = schemaBuilder.build().withHeader();
+        try (Writer writer = new FileWriter(outputPath)) {
+            csvMapper.writer(schema).writeValues(writer).writeAll(rows);
         }
     }
 }
