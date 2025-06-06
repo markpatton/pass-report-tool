@@ -14,6 +14,11 @@ import java.util.*;
  */
 public class App 
 {
+    public static void transform(InputStream jsonInputStream, OutputStream outputStream) throws IOException {
+        List<Map<String, String>> rows = extractRows(jsonInputStream);
+        writeSpreadsheet(rows, outputStream);
+    }
+
     public static void main( String[] args )
     {
         if (args.length < 2) {
@@ -22,15 +27,19 @@ public class App
         }
         String inputPath = args[0];
         String outputPath = args[1];
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode root = mapper.readTree(new File(inputPath));
-            List<Map<String, String>> rows = extractRows(root);
-            writeSpreadsheet(rows, outputPath);
+        try (InputStream in = new FileInputStream(inputPath);
+             OutputStream out = new FileOutputStream(outputPath)) {
+            transform(in, out);
             System.out.println("Spreadsheet written to " + outputPath);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static List<Map<String, String>> extractRows(InputStream jsonInputStream) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode root = mapper.readTree(jsonInputStream);
+        return extractRows(root);
     }
 
     private static List<Map<String, String>> extractRows(JsonNode root) {
@@ -131,7 +140,7 @@ public class App
         return rows;
     }
 
-    private static void writeSpreadsheet(List<Map<String, String>> rows, String outputPath) throws IOException {
+    private static void writeSpreadsheet(List<Map<String, String>> rows, OutputStream outputStream) throws IOException {
         String[] columns = Column.headers();
         CsvMapper csvMapper = new CsvMapper();
         CsvSchema.Builder schemaBuilder = CsvSchema.builder();
@@ -139,7 +148,7 @@ public class App
             schemaBuilder.addColumn(col);
         }
         CsvSchema schema = schemaBuilder.build().withHeader();
-        try (Writer writer = new FileWriter(outputPath)) {
+        try (Writer writer = new OutputStreamWriter(outputStream)) {
             csvMapper.writer(schema).writeValues(writer).writeAll(rows);
         }
     }

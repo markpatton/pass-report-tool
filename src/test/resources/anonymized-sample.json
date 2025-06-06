@@ -1,0 +1,185 @@
+{
+  "data": [
+    {
+      "type": "submission",
+      "id": "SUBMISSION_ID_1",
+      "attributes": {
+        "aggregatedDepositStatus": "STATUS",
+        "metadata": "{\"$schema\":\"SCHEMA_URL\",\"agreements\":{\"JScholarship\":\"AGREEMENT_TEXT\"},\"agent_information\":{\"name\":\"BROWSER\",\"version\":\"VERSION\"},\"authors\":[{\"author\":\"AUTHOR_1\"}],\"doi\":\"DOI_1\",\"journal-NLMTA-ID\":\"JOURNAL_ID_1\",\"journal-title\":\"JOURNAL_TITLE_1\",\"journal-title-short\":\"JOURNAL_TITLE_SHORT_1\",\"issns\":[{\"issn\":\"ISSN_1,ISSN_2\"},{\"issn\":\"ISSN_1\",\"pubType\":\"Print\"},{\"issn\":\"ISSN_2\",\"pubType\":\"Online\"}],\"publisher\":\"PUBLISHER_1\",\"title\":\"TITLE_1\",\"volume\":\"VOLUME_1\"}",
+        "source": "SOURCE",
+        "submissionStatus": "STATUS",
+        "submitted": true,
+        "submittedDate": "2000-01-01T00:00:00.000Z",
+        "submitterEmail": "anon@example.com",
+        "submitterName": "ANON",
+        "version": 0
+      },
+      "relationships": {
+        "effectivePolicies": {
+          "links": { "self": "SELF_URL", "related": "RELATED_URL" },
+          "data": []
+        },
+        "grants": {
+          "links": { "self": "SELF_URL", "related": "RELATED_URL" },
+          "data": []
+        },
+        "preparers": {
+          "links": { "self": "SELF_URL", "related": "RELATED_URL" },
+          "data": []
+        },
+        "publication": {
+          "links": { "self": "SELF_URL", "related": "RELATED_URL" },
+          "data": { "type": "publication", "id": "PUB_ID_1" }
+        },
+        "repositories": {
+          "links": { "self": "SELF_URL", "related": "RELATED_URL" },
+          "data": [ { "type": "repository", "id": "REPO_ID_1" } ]
+        },
+        "submitter": {
+          "links": { "self": "SELF_URL", "related": "RELATED_URL" },
+          "data": { "type": "user", "id": "USER_ID_1" }
+        }
+      },
+      "links": { "self": "SELF_URL" }
+    },
+    {
+      "type": "submission",
+      "id": "SUBMISSION_ID_2",
+      "attributes": {
+        "aggregatedDepositStatus": "STATUS",
+        "metadata": "{\"$schema\":\"SCHEMA_URL\",\"agreements\":{\"JScholarship\":\"AGREEMENT_TEXT\"},\"agent_information\":{\"name\":\"BROWSER\",\"version\":\"VERSION\"},\"authors\":[{\"author\":\"AUTHOR_2\"}],\"doi\":\"DOI_2\",\"journal-NLMTA-ID\":\"JOURNAL_ID_2\",\"journal-title\":\"JOURNAL_TITLE_2\",\"journal-title-short\":\"JOURNAL_TITLE_SHORT_2\",\"issns\":[{\"issn\":\"ISSN_3,ISSN_4\"}],\"publisher\":\"PUBLISHER_2\",\"title\":\"TITLE_2\",\"volume\":\"VOLUME_2\"}",
+        "source": "SOURCE",
+        "submissionStatus": "STATUS",
+        "submitted": true,
+        "submittedDate": "2000-01-01T00:00:00.000Z",
+        "submitterEmail": "anon@example.com",
+        "submitterName": "ANON",
+        "version": 0
+      },
+      "relationships": {
+        "effectivePolicies": {
+          "links": { "self": "SELF_URL", "related": "RELATED_URL" },
+          "data": []
+        },
+        "grants": {
+          "links": { "self": "SELF_URL", "related": "RELATED_URL" },
+          "data": []
+        },
+        "preparers": {
+          "links": { "self": "SELF_URL", "related": "RELATED_URL" },
+          "data": []
+        },
+        "publication": {
+          "links": { "self": "SELF_URL", "related": "RELATED_URL" },
+          "data": { "type": "publication", "id": "PUB_ID_2" }
+        },
+        "repositories": {
+          "links": { "self": "SELF_URL", "related": "RELATED_URL" },
+          "data": [ { "type": "repository", "id": "REPO_ID_1" } ]
+        },
+        "submitter": {
+          "links": { "self": "SELF_URL", "related": "RELATED_URL" },
+          "data": { "type": "user", "id": "USER_ID_2" }
+        }
+      },
+      "links": { "self": "SELF_URL" }
+    }
+  ],
+  "meta": {
+    "page": {
+      "number": 1,
+      "limit": 2,
+      "totalPages": 63,
+      "totalRecords": 125
+    }
+  },
+  "included": [
+    {
+      "type": "user",
+      "id": "USER_ID_1",
+      "attributes": {
+        "affiliation": [],
+        "displayName": "ANON",
+        "email": "anon@example.com",
+        "firstName": "ANON",
+        "lastName": "ANON",
+        "locatorIds": ["LOCATOR_1", "LOCATOR_2", "LOCATOR_3"],
+        "middleName": null,
+        "orcidId": null,
+        "roles": ["submitter"],
+        "username": "anon@example.com"
+      },
+      "links": { "self": "SELF_URL" }
+    },
+    {
+      "type": "repository",
+      "id": "REPO_ID_1",
+      "attributes": {
+        "agreementText": "AGREEMENT_TEXT",
+        "description": null,
+        "formSchema": "FORM_SCHEMA",
+        "integrationType": "INTEGRATION_TYPE",
+        "name": "REPO_NAME_1",
+        "repositoryKey": "REPO_KEY_1",
+        "schemas": ["SCHEMA_1", "SCHEMA_2"],
+        "url": "REPO_URL_1"
+      },
+      "links": { "self": "SELF_URL" }
+    },
+    {
+      "type": "publication",
+      "id": "PUB_ID_1",
+      "attributes": {
+        "doi": "DOI_1",
+        "issue": "ISSUE_1",
+        "pmid": null,
+        "publicationAbstract": null,
+        "title": "TITLE_1",
+        "volume": "VOLUME_1"
+      },
+      "relationships": {
+        "journal": {
+          "links": { "self": "SELF_URL", "related": "RELATED_URL" },
+          "data": { "type": "journal", "id": "JOURNAL_ID_1" }
+        }
+      },
+      "links": { "self": "SELF_URL" }
+    },
+    {
+      "type": "user",
+      "id": "USER_ID_2",
+      "attributes": {
+        "affiliation": [],
+        "displayName": "ANON",
+        "email": "anon@example.com",
+        "firstName": "ANON",
+        "lastName": "ANON",
+        "locatorIds": ["LOCATOR_4", "LOCATOR_5", "LOCATOR_6"],
+        "middleName": null,
+        "orcidId": null,
+        "roles": ["submitter"],
+        "username": "anon@example.com"
+      },
+      "links": { "self": "SELF_URL" }
+    },
+    {
+      "type": "publication",
+      "id": "PUB_ID_2",
+      "attributes": {
+        "doi": "DOI_2",
+        "issue": "ISSUE_2",
+        "pmid": null,
+        "publicationAbstract": null,
+        "title": "TITLE_2",
+        "volume": "VOLUME_2"
+      },
+      "relationships": {
+        "journal": {
+          "links": { "self": "SELF_URL", "related": "RELATED_URL" },
+          "data": { "type": "journal", "id": "JOURNAL_ID_2" }
+        }
+      },
+      "links": { "self": "SELF_URL" }
+    }
+  ]
+}
