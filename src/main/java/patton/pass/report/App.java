@@ -54,6 +54,7 @@ public class App
         }
         for (JsonNode submission : root.get("data")) {
             Map<String, String> row = new HashMap<>();
+            row.put(Column.PASS_ID.header(), submission.path("id").asText(""));
             JsonNode attr = submission.get("attributes");
             row.put(Column.SUBMISSION_DATE.header(), attr.path("submittedDate").asText(""));
             // Repository names

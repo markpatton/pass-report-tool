@@ -1,6 +1,7 @@
 package patton.pass.report;
 
 public enum Column {
+    PASS_ID("PASS ID"),
     SUBMISSION_DATE("Submission date"),
     SUBMITTER_NAME("Submitter name"),
     SUBMITTER_EMAIL("Submitter email"),

@@ -44,6 +44,7 @@ class AppTest {
             // Check each row's values (anonymized expected values)
             List<Map<String, String>> expectedRows = List.of(
                 Map.of(
+                    Column.PASS_ID.header(), "SUBMISSION_ID_1",
                     Column.SUBMISSION_DATE.header(), "2000-01-01T00:00:00.000Z",
                     Column.SUBMITTER_NAME.header(), "ANON",
                     Column.SUBMITTER_EMAIL.header(), "anon@example.com",
@@ -55,6 +56,7 @@ class AppTest {
                     Column.PUBLISHER_NAME.header(), "PUBLISHER_1"
                 ),
                 Map.of(
+                    Column.PASS_ID.header(), "SUBMISSION_ID_2",
                     Column.SUBMISSION_DATE.header(), "2000-01-01T00:00:00.000Z",
                     Column.SUBMITTER_NAME.header(), "ANON2",
                     Column.SUBMITTER_EMAIL.header(), "anon2@example.com",
