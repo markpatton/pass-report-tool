@@ -50,7 +50,8 @@ class AppTest {
                     Column.DOI.header(), "DOI_1",
                     Column.JOURNAL_NAME.header(), "JOURNAL_TITLE_1",
                     Column.FUNDER_NAME.header(), "",
-                    Column.PUBLISHER_NAME.header(), "PUBLISHER_1"
+                    Column.PUBLISHER_NAME.header(), "PUBLISHER_1",
+                    Column.SUBMITTER.header(), "ANON anon@example.com"
                 ),
                 Map.of(
                     Column.SUBMISSION_DATE.header(), "2000-01-01T00:00:00.000Z",
@@ -59,7 +60,8 @@ class AppTest {
                     Column.DOI.header(), "DOI_2",
                     Column.JOURNAL_NAME.header(), "JOURNAL_TITLE_2",
                     Column.FUNDER_NAME.header(), "",
-                    Column.PUBLISHER_NAME.header(), "PUBLISHER_2"
+                    Column.PUBLISHER_NAME.header(), "PUBLISHER_2",
+                    Column.SUBMITTER.header(), "ANON anon@example.com"
                 )
             );
             assertEquals(expectedRows.size(), rows.size(), "CSV should have expected number of data rows");

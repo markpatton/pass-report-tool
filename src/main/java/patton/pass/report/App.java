@@ -135,6 +135,11 @@ public class App
             row.put(Column.JOURNAL_NAME.header(), journal);
             row.put(Column.FUNDER_NAME.header(), funder);
             row.put(Column.PUBLISHER_NAME.header(), publisher);
+            // Submitter (name and email)
+            String submitterName = attr.path("submitterName").asText("");
+            String submitterEmail = attr.path("submitterEmail").asText("");
+            String submitter = (submitterName + " " + submitterEmail).trim();
+            row.put(Column.SUBMITTER.header(), submitter);
             rows.add(row);
         }
         return rows;
