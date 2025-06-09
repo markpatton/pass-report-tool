@@ -45,7 +45,8 @@ class AppTest {
             List<Map<String, String>> expectedRows = List.of(
                 Map.of(
                     Column.SUBMISSION_DATE.header(), "2000-01-01T00:00:00.000Z",
-                    Column.SUBMITTER.header(), "ANON anon@example.com",
+                    Column.SUBMITTER_NAME.header(), "ANON",
+                    Column.SUBMITTER_EMAIL.header(), "anon@example.com",
                     Column.REPOSITORY_NAMES.header(), "REPO_NAME_1",
                     Column.ARTICLE_TITLE.header(), "TITLE_1",
                     Column.DOI.header(), "DOI_1",
@@ -55,7 +56,8 @@ class AppTest {
                 ),
                 Map.of(
                     Column.SUBMISSION_DATE.header(), "2000-01-01T00:00:00.000Z",
-                    Column.SUBMITTER.header(), "ANON2 anon2@example.com",
+                    Column.SUBMITTER_NAME.header(), "ANON2",
+                    Column.SUBMITTER_EMAIL.header(), "anon2@example.com",
                     Column.REPOSITORY_NAMES.header(), "REPO_NAME_1",
                     Column.ARTICLE_TITLE.header(), "TITLE_2",
                     Column.DOI.header(), "DOI_2",

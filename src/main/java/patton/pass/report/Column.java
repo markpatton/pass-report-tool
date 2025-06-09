@@ -2,7 +2,8 @@ package patton.pass.report;
 
 public enum Column {
     SUBMISSION_DATE("Submission date"),
-    SUBMITTER("Submitter"),
+    SUBMITTER_NAME("Submitter name"),
+    SUBMITTER_EMAIL("Submitter email"),
     REPOSITORY_NAMES("Repository names"),
     ARTICLE_TITLE("Article title"),
     DOI("DOI"),
