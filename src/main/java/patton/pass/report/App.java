@@ -14,35 +14,13 @@ import java.util.*;
  */
 public class App 
 {
-    public static void transform(InputStream jsonInputStream, OutputStream outputStream) throws IOException {
-        List<Map<String, String>> rows = extractRows(jsonInputStream);
-        writeSpreadsheet(rows, outputStream);
-    }
-
-    public static void main( String[] args )
-    {
-        if (args.length < 2) {
-            System.out.println("Usage: java -jar pass-report-tool-1.0-SNAPSHOT-jar-with-dependencies.jar <input.json> <output.csv>");
-            return;
-        }
-        String inputPath = args[0];
-        String outputPath = args[1];
-        try (InputStream in = new FileInputStream(inputPath);
-             OutputStream out = new FileOutputStream(outputPath)) {
-            transform(in, out);
-            System.out.println("Spreadsheet written to " + outputPath);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static List<Map<String, String>> extractRows(InputStream jsonInputStream) throws IOException {
+    private static List<Map<String, String>> extractRows(InputStream jsonInputStream, Set<String> blacklist) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(jsonInputStream);
-        return extractRows(root);
+        return extractRows(root, blacklist);
     }
 
-    private static List<Map<String, String>> extractRows(JsonNode root) {
+    private static List<Map<String, String>> extractRows(JsonNode root, Set<String> blacklist) {
         List<Map<String, String>> rows = new ArrayList<>();
         Map<String, JsonNode> includedMap = new HashMap<>();
         if (root.has("included")) {
@@ -151,7 +129,10 @@ public class App
             }
             row.put(Column.SUBMITTER_NAME.header(), submitterName);
             row.put(Column.SUBMITTER_EMAIL.header(), submitterEmail);
-            rows.add(row);
+            // Blacklist filtering
+            if (submitterEmail == null || !blacklist.contains(submitterEmail)) {
+                rows.add(row);
+            }
         }
         return rows;
     }
@@ -166,6 +147,40 @@ public class App
         CsvSchema schema = schemaBuilder.build().withHeader();
         try (Writer writer = new OutputStreamWriter(outputStream)) {
             csvMapper.writer(schema).writeValues(writer).writeAll(rows);
+        }
+    }
+
+    public static void transform(InputStream jsonInputStream, OutputStream outputStream, Set<String> blacklist) throws IOException {
+        List<Map<String, String>> rows = extractRows(jsonInputStream, blacklist);
+        writeSpreadsheet(rows, outputStream);
+    }
+
+    public static void main( String[] args )
+    {
+        if (args.length < 3) {
+            System.out.println("Usage: java -jar pass-report-tool-1.0-SNAPSHOT-jar-with-dependencies.jar <input.json> <blacklist.txt> <output.csv>");
+            return;
+        }
+        String inputPath = args[0];
+        String blacklistPath = args[1];
+        String outputPath = args[2];
+        Set<String> blacklist = new HashSet<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(blacklistPath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String trimmed = line.trim();
+                if (!trimmed.isEmpty()) blacklist.add(trimmed);
+            }
+        } catch (IOException e) {
+            System.err.println("Failed to read blacklist file: " + e.getMessage());
+            return;
+        }
+        try (InputStream in = new FileInputStream(inputPath);
+             OutputStream out = new FileOutputStream(outputPath)) {
+            transform(in, out, blacklist);
+            System.out.println("Spreadsheet written to " + outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -23,8 +23,10 @@ class AppTest {
         try (InputStream jsonIn = getClass().getResourceAsStream("/anonymized-sample.json");
              ByteArrayOutputStream csvOut = new ByteArrayOutputStream()) {
             assertNotNull(jsonIn, "Sample JSON input should not be null");
+            // Use empty blacklist for this test
+            Set<String> blacklist = new HashSet<>();
             // Run transform
-            App.transform(jsonIn, csvOut);
+            App.transform(jsonIn, csvOut, blacklist);
             // Parse CSV output using jackson-dataformat-csv
             CsvMapper csvMapper = new CsvMapper();
             CsvSchema schema = CsvSchema.emptySchema().withHeader();
