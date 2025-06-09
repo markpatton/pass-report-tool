@@ -135,10 +135,19 @@ public class App
             row.put(Column.JOURNAL_NAME.header(), journal);
             row.put(Column.FUNDER_NAME.header(), funder);
             row.put(Column.PUBLISHER_NAME.header(), publisher);
-            // Submitter (name and email)
-            String submitterName = attr.path("submitterName").asText("");
-            String submitterEmail = attr.path("submitterEmail").asText("");
-            String submitter = (submitterName + " " + submitterEmail).trim();
+            // Submitter (name and email from user object)
+            String submitter = "";
+            JsonNode submitterRel = submission.path("relationships").path("submitter").path("data");
+            if (!submitterRel.isMissingNode() && submitterRel.has("id")) {
+                String submitterKey = "user:" + submitterRel.path("id").asText();
+                JsonNode userObj = includedMap.get(submitterKey);
+                if (userObj != null && userObj.has("attributes")) {
+                    JsonNode userAttr = userObj.get("attributes");
+                    String name = userAttr.path("displayName").asText("");
+                    String email = userAttr.path("email").asText("");
+                    submitter = (name + " " + email).trim();
+                }
+            }
             row.put(Column.SUBMITTER.header(), submitter);
             rows.add(row);
         }

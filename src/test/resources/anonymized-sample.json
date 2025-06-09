@@ -150,15 +150,15 @@
       "id": "USER_ID_2",
       "attributes": {
         "affiliation": [],
-        "displayName": "ANON",
-        "email": "anon@example.com",
-        "firstName": "ANON",
-        "lastName": "ANON",
+        "displayName": "ANON2",
+        "email": "anon2@example.com",
+        "firstName": "ANON2",
+        "lastName": "ANON2",
         "locatorIds": ["LOCATOR_4", "LOCATOR_5", "LOCATOR_6"],
         "middleName": null,
         "orcidId": null,
         "roles": ["submitter"],
-        "username": "anon@example.com"
+        "username": "anon2@example.com"
       },
       "links": { "self": "SELF_URL" }
     },

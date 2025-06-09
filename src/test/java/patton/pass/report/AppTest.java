@@ -45,23 +45,23 @@ class AppTest {
             List<Map<String, String>> expectedRows = List.of(
                 Map.of(
                     Column.SUBMISSION_DATE.header(), "2000-01-01T00:00:00.000Z",
+                    Column.SUBMITTER.header(), "ANON anon@example.com",
                     Column.REPOSITORY_NAMES.header(), "REPO_NAME_1",
                     Column.ARTICLE_TITLE.header(), "TITLE_1",
                     Column.DOI.header(), "DOI_1",
                     Column.JOURNAL_NAME.header(), "JOURNAL_TITLE_1",
                     Column.FUNDER_NAME.header(), "",
-                    Column.PUBLISHER_NAME.header(), "PUBLISHER_1",
-                    Column.SUBMITTER.header(), "ANON anon@example.com"
+                    Column.PUBLISHER_NAME.header(), "PUBLISHER_1"
                 ),
                 Map.of(
                     Column.SUBMISSION_DATE.header(), "2000-01-01T00:00:00.000Z",
+                    Column.SUBMITTER.header(), "ANON2 anon2@example.com",
                     Column.REPOSITORY_NAMES.header(), "REPO_NAME_1",
                     Column.ARTICLE_TITLE.header(), "TITLE_2",
                     Column.DOI.header(), "DOI_2",
                     Column.JOURNAL_NAME.header(), "JOURNAL_TITLE_2",
                     Column.FUNDER_NAME.header(), "",
-                    Column.PUBLISHER_NAME.header(), "PUBLISHER_2",
-                    Column.SUBMITTER.header(), "ANON anon@example.com"
+                    Column.PUBLISHER_NAME.header(), "PUBLISHER_2"
                 )
             );
             assertEquals(expectedRows.size(), rows.size(), "CSV should have expected number of data rows");
