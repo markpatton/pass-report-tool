@@ -4,9 +4,13 @@ Read JSON retrieved from PASS like `/data/submission?filter=submitted==true;sour
 
 and format it into a spreadsheet.
 
+It also can take an argument of a blacklist file which contains email addresses, one per line. If the submitter email address matches the blacklist, that submission is not output.
 
-The rows should be submission and the columns should be:
+Columns:
+  * PASS Id (submission id)
   * Submission date
+  * Submitter name
+  * Submitter email
   * Repository names
   * Article title
   * DOI
